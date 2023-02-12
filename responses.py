@@ -1,6 +1,6 @@
 import random
 
-def parse(username, message: str, db) -> str:
+def parse(username, message: str, ctrl) -> str:
     lower_message = message.lower()
 
 
@@ -10,12 +10,13 @@ def parse(username, message: str, db) -> str:
     ## Bot was called
     if tag == 'gpt':
         
-        ## Help weas called for
+        ## Help was called for
+        ## TODO Make this useful
         if p_message == 'help':
-            return 'help'
+            return 'Make this useful'
 
         if p_message == 'psych eval':
             return 'pysch eval'
 
 
-    return 'Nothing to respond to'
+    return ''
