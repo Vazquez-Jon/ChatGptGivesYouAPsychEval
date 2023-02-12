@@ -1,17 +1,22 @@
 import discord
 import responses
 
+import db_io
 
-async def save_message(message, user_message, is_private):
+
+async def work_on_message(message, user_message, username, db, is_private):
     try:
-        response = responses.get_responses(user_message)
-        await message.author.send(response) if is_private else await message.channel.send(response)
+        response = responses.parse(username, user_message, db)
+
+        ## Bot was called for so respond appropriately
+        if ( response != ''):
+            await message.author.send(response) if is_private else await message.channel.send(response)
+        ## Bot was not called so just go save message
+        else:
+            db.add_message(username, user_message)
 
     except Exception as e:
         print(e)
-
-## TODO actually make message be stored within sql database
-##async def store_message(user, message):
 
 
 def run_discord_bot():
@@ -19,6 +24,8 @@ def run_discord_bot():
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
+
+    my_db = db_io.database()
 
     @client.event
     async def on_ready():
@@ -37,8 +44,8 @@ def run_discord_bot():
 
         if user_message[0] == '?':
             user_message = user_message[1:]
-            await save_message(message, user_message, is_private=True)
+            await work_on_message(message, user_message, username, my_db, is_private=True)
         else:
-            await save_message(message, user_message, is_private=False)
+            await work_on_message(message, user_message, username, my_db, is_private=False)
 
     client.run(TOKEN)
