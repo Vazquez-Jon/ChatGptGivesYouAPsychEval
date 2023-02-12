@@ -1,3 +1,9 @@
+## Jonathan Vazquez
+## chatgptdisc_bot.py
+##
+## Desc: main code to set up bot
+
+
 import discord
 import responses
 

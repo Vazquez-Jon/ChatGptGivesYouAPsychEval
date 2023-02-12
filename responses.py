@@ -1,4 +1,7 @@
-import random
+## Jonathan Vazquez
+## responses.py
+##
+## Desc: Used to generate response for when bot was called
 
 def parse(username, message: str, ctrl) -> str:
     lower_message = message.lower()
