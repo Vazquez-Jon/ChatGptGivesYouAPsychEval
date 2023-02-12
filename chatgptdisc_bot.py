@@ -12,7 +12,8 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
         if ( response != ''):
             await message.author.send(response) if is_private else await message.channel.send(response)
         ## Bot was not called so just go save message
-        else:
+        ## Only save relatively long messages because most of the time its either @'s or 2 word messages
+        elif( len(user_message) > 16):
             ctrl.db.add_message(username, user_message)
 
     except Exception as e:
