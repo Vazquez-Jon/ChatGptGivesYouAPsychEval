@@ -70,7 +70,7 @@ class Database():
         try:
             sql_query = "select * from msg_table where username = %s"
             self.cursor.execute(sql_query, (username))
-            result = self.cursor.fetchall()
+            result = self.cursor.fetchone()
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at get_user_row(): {}".format(error))
 
@@ -102,8 +102,14 @@ class Database():
     def get_gptin(self, username):
         self.connect()
         gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
+        row = self.get_user_row(username)
+        msgs = row[2:]
 
-        
+        ## Go through all the messages even when it says none
+        for i in range(5):
+            if(msgs[i] != None):
+                gpt_input = gpt_input + msgs[i] + '\n'
 
         self.disconnect()
+        return gpt_input
         
