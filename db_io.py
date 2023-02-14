@@ -62,7 +62,6 @@ class Database():
     def get_user_row(self, username):
         self.connect()
         result = []
-        #gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
 
         ## Make sure user is in table
         if(not self.user_in_table(username)):
@@ -70,7 +69,8 @@ class Database():
 
         try:
             sql_query = "select * from msg_table where username = %s"
-            result = self.cursor.execute(sql_query, (username))
+            self.cursor.execute(sql_query, (username))
+            result = self.cursor.fetchall()
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at get_user_row(): {}".format(error))
 
@@ -101,6 +101,7 @@ class Database():
 
     def get_gptin(self, username):
         self.connect()
+        gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
 
         
 
