@@ -22,7 +22,7 @@ def parse(username, message: str, ctrl) -> str:
 
         ## TODO Add gpt get_pyscheval
         if p_message == 'psych eval':
-            gpt_input = ctrl.db.get_data(username)
+            gpt_input = ctrl.db.get_gptin(username)
             response  = ctrl.gpt.get_pyscheval(gpt_input)
 
         ## Someone tried to use a command but was typed incorrectly. Is here so you dont save useless messages
