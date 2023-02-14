@@ -78,7 +78,17 @@ class Database():
         return result
 
     ## TODO Make db calls to save message to db
-    def add_message(self, user, message):
+    def add_message(self, username, message):
+        self.connect()
+
+        sql_query = '' 
+        
+        ## User not in table so add them and their message
+        if (not self.user_in_table(username)):
+            sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
+            
+
+        self.disconnect()
         return
 
     ## Func that checks whether the user is already in the table
