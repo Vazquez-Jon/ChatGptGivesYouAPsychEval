@@ -10,7 +10,7 @@ def parse(username, message: str, ctrl) -> str:
     p_message = lower_message[4:]
     tag = lower_message[:3]
 
-    response = ''
+    response = None
 
     ## Bot was called
     if tag == 'gpt':
