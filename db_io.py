@@ -59,29 +59,38 @@ class Database():
 
 
 
-    ## TODO Make db calls and append to string
-    def get_data(self, username):
+    ## Get user's row from database
+    def get_user_row(self, username):
         self.connect()
-        gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
+        result = []
+        #gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
 
         if(self.user_in_table(username)):
-
+            try:
+                sql_query = "select * from msg_table where username = %s"
+                result = self.cursor.execute(sql_query, (username))
+            except mysql.connector.Error as error:
+                print("Failed to get record from MySQL table at get_user_row(): {}".format(error))
 
 
         self.disconnect()
-        return gpt_input
+        return result
 
     ## TODO Make db calls to save message to db
     def add_message(self, user, message):
         return
 
-    ## TODO Func that checks whether the user is already in the table
+    ## Func that checks whether the user is already in the table
     def user_in_table(self, username):
         self.connect()
+        ## Parameratize incase someone uses a "weird" username lol
         sql_query = "select username from msg_table where username = %s"
         
-        self.cursor.execute(sql_query, (username))
-        result = self.cursor.fetchall()
+        try:
+            self.cursor.execute(sql_query, (username))
+            result = self.cursor.fetchall()
+        except mysql.connector.Error as error:
+            print("Failed to get record from MySQL table at user_in_table(): {}".format(error))
 
         if (len(result) > 0):
             return True
