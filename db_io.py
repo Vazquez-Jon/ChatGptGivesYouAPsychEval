@@ -2,7 +2,7 @@
 ## db_io.py
 ##
 ## Desc: Functions to interact with online database
-## Note: Database is 7 col database => User | Oldest | Msg0 | Msg1 | Msg2 | Msg3 | Msg4
+## Note: Database is 7 col table => User | Oldest | Msg0 | Msg1 | Msg2 | Msg3 | Msg4
 
 import mysql.connector
 from mysql.connector import Error
@@ -32,6 +32,7 @@ class Database():
                 print("MySQL connection is closed")
 
     ## Func used to connect to database
+    ## TODO Check if you can just use open() or connection.connect()
     def connect(self):
         try:
             self.connection = mysql.connector.connect(host='golfpapaindigo-1.cbfyzw2jj1pn.us-west-2.rds.amazonaws.com',
@@ -59,13 +60,33 @@ class Database():
 
 
     ## TODO Make db calls and append to string
-    def get_data(self, user):
+    def get_data(self, username):
+        self.connect()
         gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
 
+        if(self.user_in_table(username)):
+
+
+
+        self.disconnect()
         return gpt_input
 
     ## TODO Make db calls to save message to db
     def add_message(self, user, message):
         return
+
+    ## TODO Func that checks whether the user is already in the table
+    def user_in_table(self, username):
+        self.connect()
+        sql_query = "select username from msg_table where username = %s"
+        
+        self.cursor.execute(sql_query, (username))
+        result = self.cursor.fetchall()
+
+        if (len(result) > 0):
+            return True
+
+        return False
+
 
         
