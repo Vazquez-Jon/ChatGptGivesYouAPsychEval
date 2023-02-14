@@ -15,7 +15,7 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
         response = responses.parse(username, user_message, ctrl)
 
         ## Bot was called for so respond appropriately
-        if ( response != ''):
+        if ( response != None):
             await message.author.send(response) if is_private else await message.channel.send(response)
         ## Bot was not called so just go save message
         ## Only save relatively long messages because most of the time its either @'s or 2 word messages
