@@ -22,8 +22,11 @@ def parse(username, message: str, ctrl) -> str:
 
         ## TODO Add gpt get_pyscheval
         if p_message == 'psych eval':
-            gpt_input = ctrl.db.get_gptin(username)
-            response  = ctrl.gpt.get_pyscheval(gpt_input)
+            try:
+                gpt_input = ctrl.db.get_gptin(username)
+                response  = ctrl.gpt.get_pyscheval(gpt_input)
+            except:
+                response = 'User has no chracter defining messages'
 
         ## Someone tried to use a command but was typed incorrectly. Is here so you dont save useless messages
         response = 'Error: I do not know what that command was.'
