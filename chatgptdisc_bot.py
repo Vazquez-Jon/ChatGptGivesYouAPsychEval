@@ -27,7 +27,7 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
 
 
 def run_discord_bot():
-    TOKEN = 'MTA1MDQ1MzMwOTU5MDM0MzcwMQ.G6uZ8F.g5VkgToCCJ9xWA3KNgAx0iIIVFG0XSRTMCmA_g'
+    TOKEN = 'MTA1MDQ1MzMwOTU5MDM0MzcwMQ.GSrG6x.otYnYqzv2bpzZkSODMF97i_JXu87SSVKTmj4Do'
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)

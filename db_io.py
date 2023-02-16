@@ -117,12 +117,12 @@ class Database():
         sql_query = "select username from msg_table where username = %s"
         
         try:
-            self.cursor.execute(sql_query, (username))
+            self.cursor.execute(sql_query, [username])
             result = self.cursor.fetchone()
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at user_in_table(): {}".format(error))
 
-        if (len(result) > 0):
+        if (len != None):
             return True
 
         self.disconnect()
