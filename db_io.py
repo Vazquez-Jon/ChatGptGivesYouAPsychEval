@@ -88,7 +88,7 @@ class Database():
             if (not self.user_in_table(username)):
                 sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
                 ## This is brand new so the oldest is itself 
-                self.cursor.execute(sql_query, [username, 0, message])
+                self.cursor.execute(sql_query, [username, 1, message])
                 self.connection.commit()
                 print(self.cursor.rowcount, "User inserted successfully into msg_table")
             ## User in table so get oldest and then add
@@ -97,13 +97,15 @@ class Database():
 
                 ## Last entry in table so go back
                 if (oldest == 5):
-                    oldest = 0
+                    oldest = 1
                     sql_query = 'update msg_table set msg1 = %s, oldest = %s where username = %s'
                 else:
+                    ## oldest is now the current string
+                    oldest = oldest + 1
                     ## I regret storing oldest as 0-4 and msgs as msg1-5
-                    sql_query = 'update msg_table set msg'+str(oldest+1)+' = %s, oldest = %s where username = %s'
+                    sql_query = 'update msg_table set msg'+str(oldest)+' = %s, oldest = %s where username = %s'
 
-                self.cursor.execute(sql_query, [message, oldest+1, username])
+                self.cursor.execute(sql_query, [message, oldest, username])
                 self.connection.commit()
                 print("msg_table updated successfully ")
 
