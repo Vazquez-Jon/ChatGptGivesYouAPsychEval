@@ -59,8 +59,8 @@ class Database():
 
 
     ## Get user's row from database
+    ## Note: this will only be called if already connected so do not connect/disconnect
     def get_user_row(self, username):
-        self.connect()
         result = []
 
         ## Make sure user is in table
@@ -74,7 +74,6 @@ class Database():
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at get_user_row(): {}".format(error))
 
-        self.disconnect()
         return result
 
     ## Make db calls to save message to db
@@ -111,8 +110,8 @@ class Database():
         return
 
     ## Func that checks whether the user is already in the table
+    ## Note: this will only be called if already connected so do not connect/disconnect
     def user_in_table(self, username):
-        self.connect()
         ## Parameratize incase someone uses a "weird" username lol
         sql_query = "select username from msg_table where username = %s"
         
@@ -125,7 +124,6 @@ class Database():
         if (result != None):
             return True
 
-        self.disconnect()
         return False
 
     def get_gptin(self, username):
