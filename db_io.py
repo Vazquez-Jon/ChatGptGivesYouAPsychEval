@@ -89,6 +89,8 @@ class Database():
                 sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
                 ## This is brand new so the oldest is itself 
                 self.cursor.execute(sql_query, (username, 0, message))
+                self.connection.commit()
+                print(self.cursor.rowcount, "Userinserted successfully into msg_table")
             ## User in table so get oldest and then add
             else:
                 oldest = int(self.cursor.fetchone()[0]) 
@@ -101,6 +103,8 @@ class Database():
                     sql_query = 'update msg_table set msg'+str(oldest+2)+' = %s, oldest = %s where username = %s'
 
                 self.cursor.execute(sql_query, (message, oldest+1, username))
+                self.connection.commit()
+                print("msg_table updated successfully ")
 
         except mysql.connector.Error as error:
             print("Failed to update table record at add_message(): {}".format(error))
