@@ -122,7 +122,7 @@ class Database():
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at user_in_table(): {}".format(error))
 
-        if (len != None):
+        if (result != None):
             return True
 
         self.disconnect()
