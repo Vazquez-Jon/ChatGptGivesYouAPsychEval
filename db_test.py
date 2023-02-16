@@ -17,8 +17,8 @@ try:
         record = cursor.fetchone()
 
         ## My tests
-        cursor.execute('select * from msg_table')
-        print(cursor.fetchall())
+        cursor.execute('select * from msg_table where username = "Jon#4572"')
+        print(cursor.fetchone())
 
         print("You're connected to database: ", record)
 
