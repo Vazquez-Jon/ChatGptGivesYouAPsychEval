@@ -11,7 +11,7 @@ class GPT_Control():
         
 
     ## Func to get psych eval
-    def get_psych_eval(self, input):
+    def get_psycheval(self, input):
         openai.api_key = self.api_key
 
         response = openai.Completion.create(
