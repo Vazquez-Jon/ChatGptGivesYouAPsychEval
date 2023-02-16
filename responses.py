@@ -18,18 +18,20 @@ def parse(username, message: str, ctrl) -> str:
         ## Help was called for
         ## TODO Make this useful
         if p_message == 'help':
-            response = 'Make this useful'
+            response = 'Type: **gpt psych eval** for a psych eval'
 
-        ## TODO Add gpt get_pyscheval
-        if p_message == 'psych eval':
+        ## A psych eval was requested
+        elif p_message == 'psych eval':
             try:
                 gpt_input = ctrl.db.get_gptin(username)
-                response  = ctrl.gpt.get_pyscheval(gpt_input)
-            except:
-                response = 'User has no chracter defining messages'
+                response  = ctrl.gpt.get_psycheval(gpt_input)
+            except Exception as e:
+                print(e)
+                response = 'User has no chracter defining messages, try typing some more meaningful messages!'
 
         ## Someone tried to use a command but was typed incorrectly. Is here so you dont save useless messages
-        response = 'Error: I do not know what that command was.'
+        else:
+            response = 'Error: I do not know what that command was.'
 
 
 
