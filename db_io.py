@@ -69,7 +69,7 @@ class Database():
 
         try:
             sql_query = "select * from msg_table where username = %s"
-            self.cursor.execute(sql_query, (username))
+            self.cursor.execute(sql_query, [username])
             result = self.cursor.fetchone()
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at get_user_row(): {}".format(error))
@@ -88,21 +88,22 @@ class Database():
             if (not self.user_in_table(username)):
                 sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
                 ## This is brand new so the oldest is itself 
-                self.cursor.execute(sql_query, (username, 0, message))
+                self.cursor.execute(sql_query, [username, 0, message])
                 self.connection.commit()
-                print(self.cursor.rowcount, "Userinserted successfully into msg_table")
+                print(self.cursor.rowcount, "User inserted successfully into msg_table")
             ## User in table so get oldest and then add
             else:
-                oldest = int(self.cursor.fetchone()[0]) 
+                oldest = int(self.get_user_row(username)[1]) 
 
                 ## Last entry in table so go back
-                if (oldest == 4):
-                    sql_query = 'update msg_table set oldest = 0, msg1=%s where username = %s'
+                if (oldest == 5):
+                    oldest = 0
+                    sql_query = 'update msg_table set msg1 = %s, oldest = %s where username = %s'
                 else:
                     ## I regret storing oldest as 0-4 and msgs as msg1-5
-                    sql_query = 'update msg_table set msg'+str(oldest+2)+' = %s, oldest = %s where username = %s'
+                    sql_query = 'update msg_table set msg'+str(oldest+1)+' = %s, oldest = %s where username = %s'
 
-                self.cursor.execute(sql_query, (message, oldest+1, username))
+                self.cursor.execute(sql_query, [message, oldest+1, username])
                 self.connection.commit()
                 print("msg_table updated successfully ")
 
@@ -132,14 +133,14 @@ class Database():
 
     def get_gptin(self, username):
         self.connect()
-        gpt_input = 'Give me a psych eval based on someone that talks in the following way.\n'
+        gpt_input = "Give me a psych eval based on someone that talks in the following way.\n"
         row = self.get_user_row(username)
         msgs = row[2:]
 
         ## Go through all the messages even when it says none
         for i in range(5):
             if(msgs[i] != None):
-                gpt_input = gpt_input + msgs[i] + '\n'
+                gpt_input = gpt_input + msgs[i] + "\n"
 
         self.disconnect()
         return gpt_input
