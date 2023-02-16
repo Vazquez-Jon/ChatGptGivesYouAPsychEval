@@ -81,23 +81,30 @@ class Database():
     def add_message(self, username, message):
         self.connect()
 
-        sql_query = '' 
+        sql_query = ''
+        oldest = 0
         
-        ## User not in table so add them and their message
-        if (not self.user_in_table(username)):
-            sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
-            ## This is brand new so the oldest is itself 
-            self.cursor.execute(sql_query, (username, 0, message))
-        ## User in table so get oldest and then add
-        else:
-            ## Get the oldest for that 
-            sql_query = 'select oldest from msg_table where username = %s'
-            self.cursor._execute(sql_query, (username))
-            oldest = self.cursor.fetchone()
-            if (oldest == 4):
-                sql_query = 'update msg_table set msg1 = %s where username = %s'
+        try:
+            ## User not in table so add them and their message
+            if (not self.user_in_table(username)):
+                sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
+                ## This is brand new so the oldest is itself 
+                self.cursor.execute(sql_query, (username, 0, message))
+            ## User in table so get oldest and then add
+            else:
+                oldest = int(self.cursor.fetchone()[0]) 
 
-            sql_query = ''
+                ## Last entry in table so go back
+                if (oldest == 4):
+                    sql_query = 'update msg_table set oldest = 0, msg1=%s where username = %s'
+                else:
+                    ## I regret storing oldest as 0-4 and msgs as msg1-5
+                    sql_query = 'update msg_table set msg'+str(oldest+2)+' = %s, oldest = %s where username = %s'
+
+                self.cursor.execute(sql_query, (message, oldest+1, username))
+
+        except mysql.connector.Error as error:
+            print("Failed to update table record at add_message(): {}".format(error))
 
 
         self.disconnect()
