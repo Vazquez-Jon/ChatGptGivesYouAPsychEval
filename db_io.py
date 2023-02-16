@@ -77,7 +77,7 @@ class Database():
         self.disconnect()
         return result
 
-    ## TODO Make db calls to save message to db
+    ## Make db calls to save message to db
     def add_message(self, username, message):
         self.connect()
 
