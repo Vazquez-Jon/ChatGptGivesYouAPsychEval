@@ -45,9 +45,13 @@ def run_discord_bot():
         if message.author == client.user or message.author.bot:
             return
 
-        username = str(message.author)
-        user_message = str(message.content)
-        channel = str(message.channel)
+        try:
+            username = str(message.author)
+            user_message = str(message.content)
+            channel = str(message.channel)
+        except Exception as e:
+            print("Something went wrong, probably wasn't a message but a picture. Error: " + e)
+            return
 
         print(f'{username} said: "{user_message}" ({channel})')
 
