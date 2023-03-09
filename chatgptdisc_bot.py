@@ -41,7 +41,8 @@ def run_discord_bot():
 
     @client.event
     async def on_message(message):
-        if message.author == client.user:
+        ## Do not have bot work on it's own messages or other bots in server
+        if message.author == client.user or message.author.bot:
             return
 
         username = str(message.author)
