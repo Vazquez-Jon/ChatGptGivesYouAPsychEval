@@ -35,7 +35,7 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
 async def convertMentionIDs(message):
     mentions = message.mentions
 
-    new_msg = message
+    new_msg = str(message.content)
 
     for mention in mentions:
         regex = "<@!?"+mention.id+">"
@@ -66,7 +66,7 @@ def run_discord_bot():
 
         try:
             username = str(message.author)
-            user_message = convertMentionIDs(str(message.content))
+            user_message = convertMentionIDs(message)
             channel = str(message.channel)
         except Exception as e:
             print("Something went wrong, probably wasn't a message but a picture. Error: " + e)
