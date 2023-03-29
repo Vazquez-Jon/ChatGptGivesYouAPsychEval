@@ -66,7 +66,7 @@ def run_discord_bot():
 
         try:
             username = str(message.author)
-            user_message = str(message.content)
+            user_message = convertMentionIDs(str(message.content))
             channel = str(message.channel)
         except Exception as e:
             print("Something went wrong, probably wasn't a message but a picture. Error: " + e)
