@@ -16,7 +16,6 @@ def parse(username, message: str, ctrl) -> str:
     if tag == 'gpt':
         
         ## Help was called for
-        ## TODO Make this useful
         if p_message == 'help':
             response = 'Type: **gpt psych eval** for a psych eval'
 
