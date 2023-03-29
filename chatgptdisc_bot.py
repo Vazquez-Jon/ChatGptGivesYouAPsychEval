@@ -9,6 +9,8 @@ import responses
 
 import api_control
 
+import re
+
 
 async def work_on_message(message, user_message, username, ctrl, is_private):
     try:
@@ -25,6 +27,23 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
 
     except Exception as e:
         print(e)
+
+## Desc: Use to get rid of disord's formatting for mentions i.e. <@1234567890>
+## convertMentionIDS(message, client)
+## message: The message to go through and replace all the id mentions with the actual username
+## return:  The message with the id's replaced with the names of the users
+async def convertMentionIDs(message):
+    mentions = message.mentions
+
+    new_msg = message
+
+    for mention in mentions:
+        regex = "<@!?"+mention.id+">"
+        match = re.search( regex, new_msg )
+
+        new_msg = new_msg.replace(match.group(), mention.name)
+
+    return new_msg
 
 
 def run_discord_bot():
