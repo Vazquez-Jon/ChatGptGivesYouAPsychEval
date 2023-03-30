@@ -13,7 +13,6 @@ import re
 
 import os
 from dotenv import load_dotenv
-from pathlib import Path
 
 
 
@@ -52,9 +51,8 @@ async def convertMentionIDs(message):
 
 
 def run_discord_bot():
-    dotenv_path = Path('../.env')
-    load_dotenv(dotenv_path=dotenv_path)
-    TOKEN = os.getenv('DISCORDPSYCHEVAL')
+    load_dotenv()
+    TOKEN = str(os.getenv('DISCORDPSYCHEVAL'))
 
     intents = discord.Intents.default()
     intents.message_content = True

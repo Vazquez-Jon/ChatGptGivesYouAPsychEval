@@ -6,12 +6,10 @@
 import openai
 import os
 from dotenv import load_dotenv
-from pathlib import Path
 
 class GPT_Control():
     def __init__(self) -> None:
-        dotenv_path = Path('../.env')
-        load_dotenv(dotenv_path=dotenv_path)
+        load_dotenv()
         self.api_key = os.getenv('OPENAI')
         
 
