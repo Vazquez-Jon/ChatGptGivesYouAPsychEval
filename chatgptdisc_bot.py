@@ -11,6 +11,11 @@ import api_control
 
 import re
 
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+
 
 async def work_on_message(message, user_message, username, ctrl, is_private):
     try:
@@ -47,7 +52,10 @@ async def convertMentionIDs(message):
 
 
 def run_discord_bot():
-    TOKEN = 'MTA1MDQ1MzMwOTU5MDM0MzcwMQ.GSrG6x.otYnYqzv2bpzZkSODMF97i_JXu87SSVKTmj4Do'
+    dotenv_path = Path('../.env')
+    load_dotenv(dotenv_path=dotenv_path)
+    TOKEN = os.getenv('DISCORDPSYCHEVAL')
+
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
