@@ -4,10 +4,15 @@
 ## Desc: Class to get response from gpt-3
 
 import openai
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 
 class GPT_Control():
     def __init__(self) -> None:
-        self.api_key = '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'
+        dotenv_path = Path('../.env')
+        load_dotenv(dotenv_path=dotenv_path)
+        self.api_key = os.getenv('OPENAI')
         
 
     ## Func to get psych eval
