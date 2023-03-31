@@ -7,15 +7,23 @@
 import mysql.connector
 from mysql.connector import Error
 
+import os
+from dotenv import load_dotenv
+
 
 class Database():
     ## This block is used to see if a connection can be made
     def __init__(self) -> None:
         try:
-            self.connection = mysql.connector.connect(host='golfpapaindigo-1.cbfyzw2jj1pn.us-west-2.rds.amazonaws.com',
-                                                  database ='GPTGivesPsychEval',
-                                                  user='Gorroa691',
-                                                  password='FunGpTEval')
+            load_dotenv()
+            self.host = str(os.getenv('DBHOST'))
+            self.database = str(os.getenv('DBNAME'))
+            self.user = str(os.getenv('DBUSER'))
+            self.password = str(os.getenv('DBPASS'))            
+            self.connection = mysql.connector.connect(host=self.host,
+                                                  database =self.database,
+                                                  user=self.user,
+                                                  password=self.password)
             if self.connection.is_connected():
                 self.db_Info = self.connection.get_server_info()
                 print("Connected to MySQL Server version ", self.db_Info)
@@ -35,10 +43,10 @@ class Database():
     ## TODO Check if you can just use open() or connection.connect()
     def connect(self):
         try:
-            self.connection = mysql.connector.connect(host='golfpapaindigo-1.cbfyzw2jj1pn.us-west-2.rds.amazonaws.com',
-                                                  database ='GPTGivesPsychEval',
-                                                  user='Gorroa691',
-                                                  password='FunGpTEval')
+            self.connection = mysql.connector.connect(host=self.host,
+                                                  database =self.database,
+                                                  user=self.user,
+                                                  password=self.password)
             if self.connection.is_connected():
                 self.db_Info = self.connection.get_server_info()
                 print("Connected to MySQL Server version ", self.db_Info)
