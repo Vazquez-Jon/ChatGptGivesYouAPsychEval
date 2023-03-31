@@ -1,6 +1,6 @@
 # ChatGptGivesYouAPsychEval
 
 # Dependencies
-Disord api
-Openai api
+Disord api  
+Openai api  
 dotenv
