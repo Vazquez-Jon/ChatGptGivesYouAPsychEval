@@ -3,4 +3,5 @@
 # Dependencies
 Disord api  
 Openai api  
-dotenv
+dotenv  
+mysql connector
