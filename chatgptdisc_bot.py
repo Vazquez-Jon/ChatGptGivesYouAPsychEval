@@ -36,13 +36,13 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
 ## convertMentionIDS(message, client)
 ## message: The message to go through and replace all the id mentions with the actual username
 ## return:  The message with the id's replaced with the names of the users
-async def convertMentionIDs(message):
+def convertMentionIDs(message):
     mentions = message.mentions
 
     new_msg = str(message.content)
 
     for mention in mentions:
-        regex = "<@!?"+mention.id+">"
+        regex = "<@!?"+str(mention.id)+">"
         match = re.search( regex, new_msg )
 
         new_msg = new_msg.replace(match.group(), mention.name)
@@ -72,10 +72,10 @@ def run_discord_bot():
 
         try:
             username = str(message.author)
-            user_message = convertMentionIDs(message)
+            user_message = str(convertMentionIDs(message))
             channel = str(message.channel)
         except Exception as e:
-            print("Something went wrong, probably wasn't a message but a picture. Error: " + e)
+            print("Something went wrong, probably wasn't a message but a picture. Error: " + str(e))
             return
 
         print(f'{username} said: "{user_message}" ({channel})')
