@@ -68,16 +68,16 @@ class Database():
 
     ## Get user's row from database
     ## Note: this will only be called if already connected so do not connect/disconnect
-    def get_user_row(self, username):
+    def get_user_row(self, userid):
         result = []
 
         ## Make sure user is in table
-        if(not self.user_in_table(username)):
+        if(not self.user_in_table(userid)):
             raise Exception('User not in table')
 
         try:
-            sql_query = "select * from msg_table where username = %s"
-            self.cursor.execute(sql_query, [username])
+            sql_query = "select * from msg_table where userid = %s"
+            self.cursor.execute(sql_query, [userid])
             result = self.cursor.fetchone()
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at get_user_row(): {}".format(error))
@@ -85,7 +85,7 @@ class Database():
         return result
 
     ## Make db calls to save message to db
-    def add_message(self, username, message):
+    def add_message(self, userid, message):
         self.connect()
 
         sql_query = ''
@@ -93,27 +93,27 @@ class Database():
         
         try:
             ## User not in table so add them and their message
-            if (not self.user_in_table(username)):
-                sql_query = 'insert into msg_table (username, oldest, msg1) values(%s, %s, %s)'
+            if (not self.user_in_table(userid)):
+                sql_query = 'insert into msg_table (userid, oldest, msg1) values(%s, %s, %s)'
                 ## This is brand new so the oldest is itself 
-                self.cursor.execute(sql_query, [username, 1, message])
+                self.cursor.execute(sql_query, [userid, 1, message])
                 self.connection.commit()
                 print(self.cursor.rowcount, "User inserted successfully into msg_table")
             ## User in table so get oldest and then add
             else:
-                oldest = int(self.get_user_row(username)[1]) 
+                oldest = int(self.get_user_row(userid)[1]) 
 
                 ## Last entry in table so go back
                 if (oldest == 5):
                     oldest = 1
-                    sql_query = 'update msg_table set msg1 = %s, oldest = %s where username = %s'
+                    sql_query = 'update msg_table set msg1 = %s, oldest = %s where userid = %s'
                 else:
                     ## oldest is now the current string
                     oldest = oldest + 1
                     ## I regret storing oldest as 0-4 and msgs as msg1-5
-                    sql_query = 'update msg_table set msg'+str(oldest)+' = %s, oldest = %s where username = %s'
+                    sql_query = 'update msg_table set msg'+str(oldest)+' = %s, oldest = %s where userid = %s'
 
-                self.cursor.execute(sql_query, [message, oldest, username])
+                self.cursor.execute(sql_query, [message, oldest, userid])
                 self.connection.commit()
                 print("msg_table updated successfully ")
 
@@ -126,12 +126,12 @@ class Database():
 
     ## Func that checks whether the user is already in the table
     ## Note: this will only be called if already connected so do not connect/disconnect
-    def user_in_table(self, username):
-        ## Parameratize incase someone uses a "weird" username lol
-        sql_query = "select username from msg_table where username = %s"
+    def user_in_table(self, userid):
+        ## Parameratize incase someone uses a "weird" userid lol
+        sql_query = "select userid from msg_table where userid = %s"
         
         try:
-            self.cursor.execute(sql_query, [username])
+            self.cursor.execute(sql_query, [userid])
             result = self.cursor.fetchone()
         except mysql.connector.Error as error:
             print("Failed to get record from MySQL table at user_in_table(): {}".format(error))
@@ -141,10 +141,10 @@ class Database():
 
         return False
 
-    def get_gptin(self, username):
+    def get_gptin(self, userid):
         self.connect()
         gpt_input = "Give me a psych eval based on someone that talks in the following way.\n"
-        row = self.get_user_row(username)
+        row = self.get_user_row(userid)
         msgs = row[2:]
 
         ## Go through all the messages even when it says none
