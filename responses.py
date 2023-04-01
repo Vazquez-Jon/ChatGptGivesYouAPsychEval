@@ -17,10 +17,10 @@ def parse(userid: int, message: str, ctrl) -> str:
         
         ## Help was called for
         if p_message == 'help':
-            response = 'Type: **gpt psych eval** for a psych eval'
+            response = 'Type: **gpt peval** for a psych eval'
 
         ## A psych eval was requested
-        elif p_message == 'psych eval':
+        elif p_message == 'peval':
             try:
                 gpt_input = ctrl.db.get_gptin(userid)
                 response  = ctrl.gpt.get_psycheval(gpt_input)
