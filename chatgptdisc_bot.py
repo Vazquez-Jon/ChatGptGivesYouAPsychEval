@@ -74,6 +74,8 @@ def run_discord_bot():
             username = str(message.author)
             user_message = str(convertMentionIDs(message))
             channel = str(message.channel)
+            ## TODO change entire database to work on ids, people can change usernames
+            userid = str(message.auther.id)
         except Exception as e:
             print("Something went wrong, probably wasn't a message but a picture. Error: " + str(e))
             return
