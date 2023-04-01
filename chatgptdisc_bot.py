@@ -16,9 +16,9 @@ from dotenv import load_dotenv
 
 
 
-async def work_on_message(message, user_message, username, ctrl, is_private):
+async def work_on_message(message, user_message, username, userid, ctrl, is_private):
     try:
-        response = responses.parse(username, user_message, ctrl)
+        response = responses.parse(userid, user_message, ctrl)
 
         ## Bot was called for so respond appropriately
         if ( response != None):
@@ -27,7 +27,7 @@ async def work_on_message(message, user_message, username, ctrl, is_private):
         ## Bot was not called so just go save message
         ## Only save relatively long messages because most of the time its either @'s or 2 word messages
         elif( len(user_message) > 16):
-            ctrl.db.add_message(username, user_message)
+            ctrl.db.add_message(userid, user_message)
 
     except Exception as e:
         print(e)
@@ -84,8 +84,8 @@ def run_discord_bot():
 
         if user_message[0] == '?':
             user_message = user_message[1:]
-            await work_on_message(message, user_message, username, my_ctrl, is_private=True)
+            await work_on_message(message, user_message, username, userid, my_ctrl, is_private=True)
         else:
-            await work_on_message(message, user_message, username, my_ctrl, is_private=False)
+            await work_on_message(message, user_message, username, userid, my_ctrl, is_private=False)
 
     client.run(TOKEN)
