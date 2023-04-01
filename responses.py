@@ -3,7 +3,7 @@
 ##
 ## Desc: Used to generate response for when bot was called
 
-def parse(username, message: str, ctrl) -> str:
+def parse(userid, message: str, ctrl) -> str:
     lower_message = message.lower()
 
 
@@ -22,7 +22,7 @@ def parse(username, message: str, ctrl) -> str:
         ## A psych eval was requested
         elif p_message == 'psych eval':
             try:
-                gpt_input = ctrl.db.get_gptin(username)
+                gpt_input = ctrl.db.get_gptin(userid)
                 response  = ctrl.gpt.get_psycheval(gpt_input)
             except Exception as e:
                 print(e)
