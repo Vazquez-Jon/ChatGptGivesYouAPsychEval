@@ -126,7 +126,7 @@ class Database():
 
     ## Func that checks whether the user is already in the table
     ## Note: this will only be called if already connected so do not connect/disconnect
-    def user_in_table(self, userid):
+    def user_in_table(self, userid: int):
         ## Parameratize incase someone uses a "weird" userid lol
         sql_query = "select userid from msg_table where userid = %s"
         
