@@ -3,7 +3,7 @@
 ##
 ## Desc: Used to generate response for when bot was called
 
-def parse(userid, message: str, ctrl) -> str:
+def parse(userid: int, message: str, ctrl) -> str:
     lower_message = message.lower()
 
 
