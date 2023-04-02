@@ -35,3 +35,13 @@ pip install python-dotenv
 ```
 pip install mysql-connector-python
 ```
+## API Keys
+At this point you will need to make a .env within the parent directory. The format for this .env file is...
+```
+OPENAI="openai-key"
+DISCORDPSYCHEVAL="discord-bot-key"
+DBHOST = "database-host"
+DBNAME = "database-name"
+DBUSER = "database-username"
+DBPASS = "database-password-for-user"
+```
