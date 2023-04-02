@@ -23,7 +23,7 @@ async def work_on_message(message, user_message, username, userid, ctrl, is_priv
         ## Bot was called for so respond appropriately
         if ( response != None):
             await message.author.send(response) if is_private else await message.channel.send(response)
-            print('Gave user: '+username+' their pscyh eval')
+            print('Gave user: '+username+' a pscyh eval')
         ## Bot was not called so just go save message
         ## Only save relatively long messages because most of the time its either @'s or 2 word messages
         elif( len(user_message) > 16):
