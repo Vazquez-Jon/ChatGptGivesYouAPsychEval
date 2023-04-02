@@ -39,6 +39,7 @@ def parse(author_userid: int, message: str, ctrl) -> str:
 
     ## Message includes a mention so use that user id
     if (lower_message[2]):
+        p_message = lower_message[0][4:9]
         userid = lower_message[1]
 
     response = None
