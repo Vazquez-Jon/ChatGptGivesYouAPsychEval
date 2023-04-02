@@ -1,6 +1,9 @@
 # ChatGptGivesYouAPsychEval
 
 # Local Installation
+## Python
+If you do not python installed then you can download it off their website.  
+https://www.python.org/downloads/
 ## Git Clone
 Once you have forked the repo then you can clone it through various methods.
 ### HTTPS
@@ -56,3 +59,17 @@ secretfile.txt
 othersecret.py
 ```
 Will make it so *.env*, *secretfile.txt*, and *othersecret.py* will be ignored by your version control sys.
+
+## Running program
+If you are in an IDE then this will be easy and just run the main file.
+### Running on a LINUX system
+There are 2 bash scripts to just run main.py, **run.sh** and **back_run.sh**.  
+You first will need to give these files permissions. In your terminal within the parent directory run these cmds...
+```
+chmod +x main.py
+chmod +x run.sh
+chmod +x back_run.sh
+```
+The differences between run.sh and back_run.sh is that back_run.sh will continue to run after closing the window in the background. It does this with the screen 
+command and to close it you can look on this site for instructions. https://dev.to/akhileshthite/how-to-keep-ec2-instance-running-after-ssh-is-terminated-45k8
+
