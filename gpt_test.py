@@ -14,4 +14,4 @@ input = "Give me a psych eval based on someone that talks in the following way.\
 ##print(gpt.get_psycheval(input))
 ##print(gpt.get_psycheval('What are farts made of?'))
 print('\nChat GPT Completions')
-print(chat_gpt.get_psycheval(input))
+print(chat_gpt.get_psycheval("as a someone who talks with a lisp" ,input))
