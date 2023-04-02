@@ -27,7 +27,7 @@ def clean_mentions(message: str):
 
     ## Clean up message a little ie no dble space from getting rid of mention and no trailing white space
     clean_msg = message.replace(id_dirty.group(), "")
-    clean_msg = message.replace("  ", " ")
+    clean_msg = clean_msg.replace("  ", " ")
     clean_msg = clean_msg.strip()
 
     ## Extracted id so just get rid of it in message to get "peval descriptor"
