@@ -42,12 +42,16 @@ def parse(author_userid: int, message: str, ctrl) -> str:
     p_message = lower_message[0][4:]
     tag = lower_message[0][:3]
     userid = author_userid
-    gpt_descriptor = None
+    gpt_descriptor = ""
 
     ## Message includes a mention so use that user id
     if (lower_message[2]):
         p_message = lower_message[0][4:9]
         userid = lower_message[1]
+
+    ## If message does not end with eval then user also included a descriptor
+    if ( not lower_message[0].endswith('eval') ):
+        gpt_descritor = lower_message[0][9:]
 
     response = None
 
