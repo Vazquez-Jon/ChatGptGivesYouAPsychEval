@@ -3,6 +3,31 @@
 ##
 ## Desc: Used to generate response for when bot was called
 
+import re
+
+## Desc: Use to clean a message that has a mention(the id and not weird disc mention)
+## clean_mentions(message)
+## message: the message to clean as a str
+def clean_mentions(message: str):
+    ## Regex used to find discord's formatting of mentions in the message str
+    regex_dirty = "<@!?[0-9]+>"
+    ## Regex to find the id in the weird format str
+    regex_clean = "[0-9]+"
+
+    ## Get the weird mention format str from the message
+    id_dirty = re.search(regex_dirty, message)
+
+    ## No match so there is no id's
+    if( id_dirty.group() == None ):
+        return [message, False]
+
+    ## Get the id from the weird mention format str
+    id_clean = re.search(regex_clean, id_dirty.group())
+
+    ## Replace the weird format str with the id in the message
+    return [message.replace(id_dirty.group(), id_clean.group()), True]
+
+
 def parse(userid: int, message: str, ctrl) -> str:
     lower_message = message.lower()
 
