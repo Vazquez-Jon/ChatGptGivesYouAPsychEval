@@ -42,7 +42,7 @@ def parse(author_userid: int, message: str, ctrl) -> str:
     p_message = lower_message[0][4:]
     tag = lower_message[0][:3]
     userid = author_userid
-    gpt_descriptor = ""
+    gpt_descriptor = None
 
     ## Message includes a mention so use that user id
     if (lower_message[2]):
