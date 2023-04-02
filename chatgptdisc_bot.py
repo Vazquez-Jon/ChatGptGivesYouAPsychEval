@@ -43,9 +43,9 @@ def convertMentionIDs(message):
 
     for mention in mentions:
         regex = "<@!?"+str(mention.id)+">"
-        match = re.search( regex, new_msg )
+        id = re.search( regex, new_msg )
 
-        new_msg = new_msg.replace(match.group(), mention.name)
+        new_msg = new_msg.replace(id.group(), mention.name)
 
     return new_msg
 
