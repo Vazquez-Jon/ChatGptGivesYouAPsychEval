@@ -66,7 +66,7 @@ def parse(author_userid: int, message: str, ctrl) -> str:
         elif p_message == 'peval':
             try:
                 gpt_input = ctrl.db.get_gptin(userid)
-                response  = ctrl.gpt.get_psycheval(gpt_input)
+                response  = ctrl.gpt.get_psycheval(gpt_descriptor, gpt_input)
             except Exception as e:
                 print(e)
                 response = 'User has no chracter defining messages, try typing some more meaningful messages!'
