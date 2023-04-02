@@ -6,12 +6,12 @@ Once you have forked the repo then you can clone it through various methods.
 ### HTTPS
 I would recommend VSCode which is fairly simple or you can use your own IDE. If not the git command is...
 ```
-git clone *url*
+git clone url
 ```
 ### SSH
 If you have ssh keys set up then this will work as well
 ```
-git clone *ssh url*
+git clone git@github.com:user/forkrepo.git
 ```
 ## Install PIP
 Praise all mighty pip and making everything easy to install. PIP installation changes from system to system(mainly OS) so figure it out.
