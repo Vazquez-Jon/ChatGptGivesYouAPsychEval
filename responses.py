@@ -49,7 +49,7 @@ def parse(author_userid: int, message: str, ctrl) -> str:
 
     ## If message does not end with eval then user also included a descriptor
     if ( not lower_message[0].endswith('eval') ):
-        gpt_descritor = lower_message[0][9:]
+        gpt_descriptor = lower_message[0][9:]
 
     response = None
 
