@@ -27,7 +27,7 @@ async def work_on_message(message, user_message, username, userid, ctrl, is_priv
         ## Bot was not called so just go save message
         ## Only save relatively long messages because most of the time its either @'s or 2 word messages
         elif( len(user_message) > 16):
-            ctrl.db.add_message(userid, user_message)
+            ctrl.db.add_message(userid, str(convertMentionIDs(message)))
 
     except Exception as e:
         print(e)
@@ -72,9 +72,8 @@ def run_discord_bot():
 
         try:
             username = str(message.author)
-            user_message = str(convertMentionIDs(message))
+            user_message = str(message)
             channel = str(message.channel)
-            ## TODO change entire database to work on ids, people can change usernames
             userid = str(message.author.id)
         except Exception as e:
             print("Something went wrong, probably wasn't a message but a picture. Error: " + str(e))
