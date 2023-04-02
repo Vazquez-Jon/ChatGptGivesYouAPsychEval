@@ -72,7 +72,7 @@ def run_discord_bot():
 
         try:
             username = str(message.author)
-            user_message = str(message)
+            user_message = str(message.content)
             channel = str(message.channel)
             userid = str(message.author.id)
         except Exception as e:

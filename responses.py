@@ -19,7 +19,7 @@ def clean_mentions(message: str):
     id_dirty = re.search(regex_dirty, message)
 
     ## No match so there is no id's
-    if( id_dirty.group() == None ):
+    if( id_dirty == None ):
         return [message, None, False]
 
     ## Get the id from the weird mention format str
@@ -32,7 +32,7 @@ def clean_mentions(message: str):
 
     ## Extracted id so just get rid of it in message to get "peval descriptor"
     ## Return message w/o weird str, extracted id, wether or not str had id
-    return [clean_msg, int(id_clean), True]
+    return [clean_msg, int(id_clean.group()), True]
 
 
 def parse(author_userid: int, message: str, ctrl) -> str:
