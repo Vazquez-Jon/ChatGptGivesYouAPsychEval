@@ -37,7 +37,6 @@ def clean_mentions(message: str):
 
 def parse(author_userid: int, message: str, ctrl) -> str:
     lower_message = clean_mentions(message.lower())
-    ## TODO Take care of when someone uses gpt peval @someone
 
     p_message = lower_message[0][4:9]
     tag = lower_message[0][:3]
