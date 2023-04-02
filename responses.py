@@ -25,8 +25,13 @@ def clean_mentions(message: str):
     ## Get the id from the weird mention format str
     id_clean = re.search(regex_clean, id_dirty.group())
 
-    ## Replace the weird format str with the id in the message
-    return [message.replace(id_dirty.group(), id_clean.group()), int(id_clean), True]
+    clean_msg = message.replace(id_dirty.group(), "")
+    ## Above line will leave a double space so get rid of it
+    clean_msg = message.replace("  ", " ")
+    
+    ## Extracted id so just get rid of it in message to get "peval descriptor"
+    ## Return message w/o weird str, extracted id, wether or not str had id
+    return [clean_msg, int(id_clean), True]
 
 
 def parse(author_userid: int, message: str, ctrl) -> str:
