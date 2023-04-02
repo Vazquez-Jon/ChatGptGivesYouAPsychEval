@@ -29,13 +29,17 @@ def clean_mentions(message: str):
     return [message.replace(id_dirty.group(), id_clean.group()), int(id_clean), True]
 
 
-def parse(userid: int, message: str, ctrl) -> str:
+def parse(author_userid: int, message: str, ctrl) -> str:
     lower_message = clean_mentions(message.lower())
     ## TODO Take care of when someone uses gpt peval @someone
 
-
     p_message = lower_message[0][4:]
     tag = lower_message[0][:3]
+    userid = author_userid
+
+    ## Message includes a mention so use that user id
+    if (lower_message[2]):
+        userid = lower_message[1]
 
     response = None
 
