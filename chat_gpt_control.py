@@ -14,15 +14,26 @@ class Chat_GPT_Control():
         
 
     ## Func to get psych eval
-    def get_psycheval(self, input):
+    def get_psycheval(self, desc, input):
         openai.api_key = self.api_key
 
-        response = openai.ChatCompletion.create(
-            model = "gpt-3.5-turbo",
-            messages = [
-                {"role": "system", "content" : "You are a PyschEvalGPT. You give comedic pyschological evaluations based on messages sent by a person."},
-                {"role": "user", "content": input}
-            ]
-        )
+        ## There is no descriptor so use default
+        if (desc == None):
+            response = openai.ChatCompletion.create(
+                model = "gpt-3.5-turbo",
+                messages = [
+                    {"role": "system", "content" : "You are a PyschEvalGPT. You give comedic psychological evaluations based on messages sent by a person."},
+                    {"role": "user", "content": input}
+                ]
+            )
+        else:
+            response = openai.ChatCompletion.create(
+                model = "gpt-3.5-turbo",
+                messages = [
+                    {"role": "system", "content" : "You are a PyschEvalGPT. You give comedic psychological evaluations based on messages sent by a person. You give these evaluations "+desc},
+                    {"role": "user", "content": input}
+                ]
+            )
+
         
         return response['choices'][0]['message']['content']
