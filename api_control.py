@@ -10,6 +10,6 @@ class API_Control():
     def __init__(self) -> None:
         ## Database setup
         self.db = db_io.Database()
-        self.gpt = chat_gpt_control.GPT_Control()
+        self.gpt = chat_gpt_control.Chat_GPT_Control()
 
     
