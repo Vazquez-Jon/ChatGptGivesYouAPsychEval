@@ -8,6 +8,7 @@ import re
 ## Desc: Use to clean a message that has a mention(the id and not weird disc mention)
 ## clean_mentions(message)
 ## message: the message to clean as a str
+## Return: [clean string, id, if str has an id]
 def clean_mentions(message: str):
     ## Regex used to find discord's formatting of mentions in the message str
     regex_dirty = "<@!?[0-9]+>"
@@ -19,21 +20,22 @@ def clean_mentions(message: str):
 
     ## No match so there is no id's
     if( id_dirty.group() == None ):
-        return [message, False]
+        return [message, None, False]
 
     ## Get the id from the weird mention format str
     id_clean = re.search(regex_clean, id_dirty.group())
 
     ## Replace the weird format str with the id in the message
-    return [message.replace(id_dirty.group(), id_clean.group()), True]
+    return [message.replace(id_dirty.group(), id_clean.group()), int(id_clean), True]
 
 
 def parse(userid: int, message: str, ctrl) -> str:
-    lower_message = message.lower()
+    lower_message = clean_mentions(message.lower())
+    ## TODO Take care of when someone uses gpt peval @someone
 
 
-    p_message = lower_message[4:]
-    tag = lower_message[:3]
+    p_message = lower_message[0][4:]
+    tag = lower_message[0][:3]
 
     response = None
 
