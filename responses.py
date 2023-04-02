@@ -58,7 +58,7 @@ def parse(author_userid: int, message: str, ctrl) -> str:
         
         ## Help was called for
         if p_message == 'help':
-            response = 'Type: **gpt peval** for a psych eval'
+            response = 'Type: **gpt peval [@User] [as ***input a descriptor here***]** for a psych eval'
 
         ## A psych eval was requested
         elif p_message == 'peval':
@@ -71,7 +71,7 @@ def parse(author_userid: int, message: str, ctrl) -> str:
 
         ## Someone tried to use a command but was typed incorrectly. Is here so you dont save useless messages
         else:
-            response = 'Error: I do not know what that command was.'
+            response = 'Error: I do not know what that command was. Try **gpt help.**'
 
 
 
