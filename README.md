@@ -3,6 +3,7 @@
 The bot uses 3 apis, discord.py/mysqlconnector/openai, which it uses all all of these to give you a psych eval from a user. There is a database on AWS that has a format of  
 |UserID|oldest|msg1|msg2|msg3|msg4|msg5|
 |------|------|----|----|----|----|----|
+
 Messages are only updated left to right starting from msg1. Each message can be a length of 400 characters(an essay). The bot will keep get all messages send in the server and add messages to the database if they are relatively long. Specifically if they are longer than 16 characters, this can be changed if you want shorter messages or longer. If the 'gpt peval' command is used then the bot will get all the messages of the calling user from the database and then call all the openai for a response using their chat completion feature. The exact thing it sends
 
 # Local Installation
