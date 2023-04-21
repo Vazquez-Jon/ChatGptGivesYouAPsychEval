@@ -1,8 +1,12 @@
 # ChatGptGivesYouAPsychEval
+# How it works
+The bot uses 3 apis, discord.py/mysqlconnector/openai, which it uses all all of these to give you a psych eval from a user. There is a database on AWS that has a format of  
+| UserID | oldest | msg1 | msg2 | msg3 | msg4 | msg5 |  
+Messages are only updated left to right starting from msg1. Each message can be a length of 400 characters(an essay). The bot will keep get all messages send in the server and add messages to the database if they are relatively long. Specifically if they are longer than 16 characters, this can be changed if you want shorter messages or longer. If the 'gpt peval' command is used then the bot will get all the messages of the calling user from the database and then call all the openai for a response using their chat completion feature.
 
 # Local Installation
 ## Python
-If you do not python installed then you can download it off their website.  
+If you do not have python installed then you can download it off their website.  
 https://www.python.org/downloads/
 ## Git Clone
 Once you have forked the repo then you can clone it through various methods.
@@ -63,7 +67,7 @@ Will make it so *.env*, *secretfile.txt*, and *othersecret.py* will be ignored b
 ## Running program
 If you are in an IDE then this will be easy and just run the main file.
 ### Running on a LINUX system
-There are 2 bash scripts to just run main.py, **run.sh** and **back_run.sh**.  
+There are 2 bash scripts to just run main.py. **run.sh** and **back_run.sh**.  
 You first will need to give these files permissions. In your terminal within the parent directory run these cmds...
 ```
 chmod +x main.py
@@ -73,3 +77,4 @@ chmod +x back_run.sh
 The differences between run.sh and back_run.sh is that back_run.sh will continue to run after closing the window in the background. It does this with the screen 
 command and to close it you can look on this site for instructions. https://dev.to/akhileshthite/how-to-keep-ec2-instance-running-after-ssh-is-terminated-45k8
 
+# Installation on an AWS EC2 Server using Amzon LINUX
