@@ -13,6 +13,7 @@ Literally, the input to openai is *give me a psych eval as john f kennedy*.
 In fact can right anything after peval and it will enter as an input like that. gpt eval as [anything].
 
 ## **gpt eval @user as [input]
+Combination of all the commands above put together.
 
 # How it works
 The bot uses 3 apis, discord.py/mysqlconnector/openai, which it uses all all of these to give you a psych eval from a user. There is a database on AWS that has a format of  
@@ -95,3 +96,4 @@ The differences between run.sh and back_run.sh is that back_run.sh will continue
 command and to close it you can look on this site for instructions. https://dev.to/akhileshthite/how-to-keep-ec2-instance-running-after-ssh-is-terminated-45k8
 
 # Installation on an AWS EC2 Server using Amzon LINUX
+In construction...
