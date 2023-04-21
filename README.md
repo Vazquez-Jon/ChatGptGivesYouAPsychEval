@@ -1,10 +1,25 @@
 # ChatGptGivesYouAPsychEval
+
+# Commands
+## **gpt peval**  
+Returns psych eval of user who called cmd.
+
+## **gpt peval @user**
+Returns psych eval of a specified user.
+
+## **gpt peval as John F Kennedy**
+Return psych eval of user who called cmd as john f kennedy.  
+Literally, the input to openai is *give me a psych eval as john f kennedy*.  
+In fact can right anything after peval and it will enter as an input like that. gpt eval as [anything].
+
+## **gpt eval @user as [input]
+
 # How it works
 The bot uses 3 apis, discord.py/mysqlconnector/openai, which it uses all all of these to give you a psych eval from a user. There is a database on AWS that has a format of  
 |UserID|oldest|msg1|msg2|msg3|msg4|msg5|
 |------|------|----|----|----|----|----|
 
-Messages are only updated left to right starting from msg1. Each message can be a length of 400 characters(an essay). The bot will keep get all messages send in the server and add messages to the database if they are relatively long. Specifically if they are longer than 16 characters, this can be changed if you want shorter messages or longer. If the **gpt peval** command is used then the bot will get all the messages of the calling user from the database and then call all the openai for a response using their chat completion feature. The exact message it sends is in the **chat_gpt_control.py** file.
+Messages are only updated left to right starting from msg1. Each message can be a length of 400 characters(an essay). The bot will keep get all messages send in the server and add messages to the database if they are relatively long. Specifically if they are longer than 16 characters, this can be changed if you want shorter messages or longer. If the **gpt peval** command is used then the bot will get all the messages of the calling user from the database and then call all the openai for a response using their chat completion feature. The exact message it sends is in the **chat_gpt_control.py** file. The bot will then wait for the response from openai and sends it back to the user.
 
 # Local Installation
 ## Python
