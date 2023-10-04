@@ -104,5 +104,8 @@ In construction...
 ## Remotely connecting to AWS EC2 server
 You set up ssh keys for this server already so you can just ssh to it. How to do it is in the connect window of the instance. Just make sure you're under the SSH Client tab. Make sure you run the command in the same directory with the private file key. You can do it all in windows terminal.
 
-# IsBotUp?
-True
+## Bugs
+GPT Api was changed and too many tokens are being sent now, max might be 2000???
+
+## IsBotUp?
+False
