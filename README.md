@@ -97,3 +97,12 @@ command and to close it you can look on this site for instructions. https://dev.
 
 # Installation on an AWS EC2 Server using Amzon LINUX
 In construction...
+
+
+# Notes For Future Jon
+
+## Remotely connecting to AWS EC2 server
+You set up ssh keys for this server already so you can just ssh to it. How to do it is in the connect window of the instance. Just make sure you're under the SSH Client tab. Make sure you run the command in the same directory with the private file key. You can do it all in windows terminal.
+
+# IsBotUp?
+True
